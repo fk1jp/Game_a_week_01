@@ -13,6 +13,8 @@
 
     "jsList" : [
         "src/resource.js",
+        "src/next.js",
+        "src/nextScene.js",
         "src/app.js"
     ]
 }
