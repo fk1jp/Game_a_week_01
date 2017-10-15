@@ -2,6 +2,10 @@
 var HelloWorldLayer = cc.Layer.extend({
     sprite:null,
     boxes:[],
+    red:  cc.color(255, 0, 0),
+    green:cc.color(0, 255, 0),
+    blue: cc.color(0, 0, 255),
+    clear:cc.color(0, 0, 0, 0),
     ctor:function () {
         //////////////////////////////
         // 1. super init first
@@ -33,17 +37,21 @@ var HelloWorldLayer = cc.Layer.extend({
         this.addChild(this.sprite, 0);
 
         //var boxes = new Array(5);
-        for (var i = 1 ; i <= 5 ; i++ ){
-            this.boxes[i] = new cc.Sprite(res.HelloWorld_png);
-            this.boxes[i].attr({
-                x: size.width * (2 * i - 1) / 10 ,
-                y: size.height / 2 - 200
-            });
+        for (var i = 0 ; i < 6 ; i++ ){
+        this.boxes[i] = new Array();
+        for (var j = 0 ; j < 9 ; j++ ){
+            this.boxes[i][j] = new cc.DrawNode();
+            var origin = cc.p(i*size.width/6 + 10 ,(j+1)*size.height/10 );
+            this.boxes[i][j].drawRect(cc.p(0,0), cc.p(size.width/6 -20 ,size.height/11),this.clear , 5, this.green);
+            this.boxes[i][j].setContentSize(size.width/6 -5 ,size.height/11);
+            this.boxes[i][j].setPosition(origin);
             cc.log("hello", i);
-            this.boxes[i].setTag("Image" + i);
-            this.addChild(this.boxes[i], 0);
-            cc.eventManager.addListener(listener.clone(), this.boxes[i]);
+            this.boxes[i][j].setTag("square" + i + j);
+            this.addChild(this.boxes[i][j], 0);
+            cc.eventManager.addListener(listener.clone(), this.boxes[i][j]);
         }
+        }
+
 
         return true;
     }
